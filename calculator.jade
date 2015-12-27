@@ -1,0 +1,72 @@
+doctype html
+html
+	head
+		title Alec Armstrong ~ Calculator
+		
+		// css
+		link(rel="stylesheet" href="css/bootstrap.min.css")
+		link(rel="stylesheet" href="css/calc.css")
+	//- head
+	body
+		.fluid-container
+			.container
+				.row
+					.col-sm-offset-1.col-sm-10.col-md-offset-2.col-md-8.col-lg-offset-3.col-lg-6
+						.calculator
+							h1 Calculator
+							h3 Output
+							.output
+								p 	
+									span#top &nbsp
+									br
+									span#bot &nbsp
+							//- output
+							.button-area
+								ul#buttons
+									li.clears AC
+									li.clears CE
+									li %
+									li ÷
+								ul#buttons
+									li 7
+									li 8
+									li 9
+									li x
+								ul#buttons
+									li 4
+									li 5
+									li 6
+									li -
+								ul#buttons
+									li 1
+									li 2
+									li 3
+									li.empty
+								ul#buttons
+									li 0
+									li .
+									li =
+									li.big +
+							//- end button area
+						//- end calculator
+					//- end col
+				//- end row
+			//- container
+			.footer
+				.container
+					h2 Calculator
+						small by Alec Armstrong
+							br
+							| Need to change layout on buttons. If it shows up as one long column then try viewing on chrome.
+					//- small
+				//- h2
+				
+			//- end fluid container
+		//- footer
+		//- fluid container
+		// scripts
+		script(src="js/bootstrap.min.js")
+		script(src="js/jquery.min.js")
+		script(src="js/calc.js")
+	//- body
+//- html
