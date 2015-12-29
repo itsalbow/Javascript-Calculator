@@ -22,12 +22,7 @@ h5, a, p, small {
 // Body ////////////////////////
 body{
 	background: $bg;
-	height: 100%;
 }///////////////////////////////
-
-html {
-	height: 100%;
-}
 
 // Calculator body /////////////
 .calculator {
@@ -89,7 +84,7 @@ html {
 	#buttons{
 		font-size: 1.5em;
 		font-family: 'Cantarell';
-		display: flex;
+		//display: inline-block;
 		//justify-content: space-between;
 		width: 100%;
 		background: none;
@@ -102,12 +97,17 @@ html {
 			line-height: 2.4em;
 			position: relative;
 			margin: 10px 1% 0 1%;
-			width: 100%;
+			width: 22%;
 			height: 50px;
 			text-shadow:-1px -1px 0 #01051A;
 			background: $btn;
 			color: $output;
 			border: 1px solid #656E9E;
+			
+			// small screen for buttons
+			@media screen and (max-width: 386px){
+				width: 20%;
+			}
 			
 			// Gradiient
 			background-image:-webkit-linear-gradient(top, #091242, #656E9E);
@@ -132,7 +132,7 @@ html {
 				0 -1px 0 rgba(255, 255, 255, .1) inset, 
 				0 4px 0 #02061C, 0 4px 2px rgba(0, 0, 0, .5);
 			
-			display: block;
+			display: inline-block;
     		flex: 0 1 auto; /* Default */
     		list-style-type: none;
 			&:before{
@@ -178,15 +178,21 @@ html {
 			}//- hover
 		} // li
 		.big{
-			margin-top: -50px !important;
-			padding-top: 35px;
+			//height: 100px;
+			margin-top: -100px !important;
+			padding-top: 30px;
 			height: 110px;
+			bottom: 30px;
+			
 		}// big button
 		.empty{
-			height: 0px;
-			padding-top: 0;
+			max-height: 0px;
 			border: 0;
+			margin-left: 22.5%;
+			max-width: 0px;
+			
 		}// empty button
+		
 		.clears{
 			text-shadow:-1px -1px 0 #301319;
 			background: $txt;
@@ -233,13 +239,9 @@ html {
 
 // Footer //////////////////////
 .footer {
-	margin-top: 10%;
-	min-height: 350px;
-    height: auto !important;
-    height: 350px;
+	margin-top: 100px;
 	background-color: rgba(9,18,66,.9);
-	margin-bottom: 0;
-	padding-bottom: 5.5%;
+	padding-bottom: 75px;
 	width: 100%;
 	h2 {
 		color: $txt;
@@ -249,9 +251,4 @@ html {
 		} // footer h2 small
 	} // footer h2
 }//////////////////////////////
-
-
-
-
-
 
