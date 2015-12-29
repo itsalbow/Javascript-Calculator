@@ -1,117 +1,137 @@
 
+// Alec Arnstrong
+
 var input;
 var total = 0;
 var sub = "";
 var str = "";
-var count = 0;
+var hitEquals = false;
 
+function DivideByZeroException() {}// divid by zero exception
 
-// Ready
-$( document ).ready( function(){
-	
+// Document Ready
+$( document ).ready( function() {
+
 	// Button Listener
-	$('.button-area').find('li').click(function (){
+	$('li').click( function () {
 		// Save input
 		input = $(this).text(); 
-		
+		console.log(input);
 		try{
 			switch( input ){
 				case 'AC': // All Clear
 					total = 0;
 					sub = "";
 					str = "";
-					$('#bot').text(" ");// alt+255
-					$('#top').text(" ");// alt+255
+					$('#bot').html("&nbsp")
+					$('#top').text('Total Reset');
+					hitEquals = false;
 					break;
 
 				case 'CE': // Clear last
 					str = str.substring(0, str.length - 1);
-					if(str.length > 1){
+					if(str.length >= 1){
 						$('#bot').text(str);
 					} else {
-						$('#bot').text(" ");
+						$('#bot').html("&nbsp");
+					}
+					break;	
+								
+				case '=': // Equals
+					if(str !== ''){
+						sub += str;
+						total = eval(sub);
+						
+						if(total === Infinity){
+							throw new DivideByZeroException();
+						}
+						
+						sub = total.toString();
 						$('#top').text(total);
+						$('#bot').html("&nbsp");
+						str = " ";
+						hitEquals = true;
+					} else {
+						alert("Enter an equation first");
 					}
 					break;
-				
-				case '=': // Equals
-					sub += str;
-					total = eval(sub);
-					$('#top').text(total);
-					$('#bot').text(" ");
-					str = " ";
+					
+				case '\u00f7': // Change divide
+					updateTotal('/','\u00f7');
 					break;
 					
-				case '÷': // Change divide
-					// if there isn't already a '/'
-					if(opChk(input)) {
-						inputError(input);
-					} else {
-						sub += str + " / ";
-					}// end else
-					moveToTop('÷');
+				case '\u00d7': // Change multiply
+					updateTotal('*','\u00d7');
 					break;
-
-				case 'x': // Change multiply
-					// if there isn't already a '*'
-					if(opChk('*')) {
-						inputError(input)
-					} else {
-						sub += str + " * ";
-					}// end else
-					moveToTop('x');
+					
+				case '-': // Minus
+				case '+': // Plus
+					updateTotal(input);
 					break;
-
+										
 				case '%': // Get percentage of current sub-total
-					str = " " + (eval(str) / 100) + " ";
-					$('#bot').text(str);
+					if(str !== "" && str !== " "){ // if no data entered
+						str = (eval(str) / 100).toString();
+						$('#bot').text(str);
+					} else {
+						alert("Enter a number and then press the % button");
+					}// end else			
 					break;
+	
+				default: // All Number buttons and decimal button
+					if(hitEquals === true && sub.indexOf(" ") < 0 ){
+						total = 0;
+						sub = "";
+						$('#top').text('Total Reset');
+						str += input;
+						hitEquals = false;
+					} else {
+						str += input;
+					}// end else
 					
-				case '-':
-					sub += str + " " + input  + " ";
-					moveToTop('-');
-					break;
-					
-				case '+':
-					sub += str + " " + input  + " ";
-					moveToTop('+');
-					break;
-					
-				default: // Everything else
-					str += input;
 					$('#bot').text(str);
 					break;
 			}// end switch
-			
-			
 		} catch( ex ) {
-			alert(ex + "An error has occured.\nClearing all data");
+			if( ex instanceof DivideByZeroException) {
+				alert("Cannot divide by zero");
+			} else {
+				console.log(sub);
+			}// end else
+			$('#bot').text('Error');
+			$('#top').text('Total Reset');
 			sub = "";
 			str = "";
 			total = 0;
-		}// end try catch block
-		
+		}// end try catch
 	});	// end click
 });// end ready
 
-// Alert errors
-function inputError(entry){
-	alert("Error: Expected a number but recieved \"" + entry + "\".");
-}
-
-// check for multiple math operators
-function opChk(entry){
-	var chk = sub.substr(sub.length - 2, 1); // extract last entry
-	return (chk === '/' || chk === '*');
-}
-
-function moveToTop(op){
+// Update total
+function updateTotal(operator, mathCode){
+	var op = operator;
+	var code = mathCode;
+	if(!code) code = ''; // if mathCode wasn't sent
 	
-	var current = sub.substring(0, sub.length - 3);
-	total = eval(current);
+	// if doing math
+	if(str !== ""){ 
+		sub += str; // append string to sub total
+		total = eval(sub); // evaluate current sub-total
+		if(total === Infinity){
+			throw new DivideByZeroException();
+		}// end if
+	} else { // changing operator
+		sub = sub.substring(0, sub.length -2); // cut off the old operator
+	}// end else
 	
-	str = " ";
+	sub += " " + op + " "; // append math operator
+	str = "";// reset string
+		
+	// Display
+	code === '' && $('#top').text(total + op); // if + or -
+	code !== '' && $('#top').text(total + code);// if * or /
+	$('#bot').html('&nbsp');
+	code = '';
 	
-	$('#bot').text(" ");
-	$('#top').text(total + " " + op);
+	
 }

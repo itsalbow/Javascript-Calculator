@@ -8,7 +8,7 @@ html
 		link(rel="stylesheet" href="css/calc.css")
 	//- head
 	body
-		.fluid-container
+		.fluid-container#calc-area
 			.container
 				.row
 					.col-sm-offset-1.col-sm-10.col-md-offset-2.col-md-8.col-lg-offset-3.col-lg-6
@@ -26,12 +26,12 @@ html
 									li.clears AC
 									li.clears CE
 									li %
-									li ÷
+									li &divide
 								ul#buttons
 									li 7
 									li 8
 									li 9
-									li x
+									li &times
 								ul#buttons
 									li 4
 									li 5
@@ -52,17 +52,15 @@ html
 					//- end col
 				//- end row
 			//- container
-			.footer
-				.container
-					h2 Calculator
-						small by Alec Armstrong
-							br
-							| Need to change layout on buttons. If it shows up as one long column then try viewing on chrome.
+		.fluid-container#footer
+			.container
+				h2 Calculator
+					small by Alec Armstrong
 					//- small
 				//- h2
 				
 			//- end fluid container
-		//- footer
+		
 		//- fluid container
 		// scripts
 		script(src="js/jquery.min.js")

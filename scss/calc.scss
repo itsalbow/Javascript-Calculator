@@ -21,8 +21,13 @@ h5, a, p, small {
 
 // Body ////////////////////////
 body{
-	background: $bg;
+	background: $btn;
 }///////////////////////////////
+
+#calc-area{
+	background: $bg;
+	padding-bottom: 75px;
+}
 
 // Calculator body /////////////
 .calculator {
@@ -154,7 +159,7 @@ body{
 				z-index: -1;
 				
 			}// li:before
-			&:active, .active {
+			&:active {
 				-webkit-box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset;
 				-mos-box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset;
 				box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset;
@@ -183,6 +188,14 @@ body{
 			padding-top: 30px;
 			height: 110px;
 			bottom: 30px;
+			&:active:before{
+				top: 0px;
+				content: "";
+				bottom:  0px;
+			}
+			&:active{
+				top: -25px;
+			}
 			
 		}// big button
 		.empty{
@@ -238,10 +251,8 @@ body{
 }///////////////////////////////
 
 // Footer //////////////////////
-.footer {
-	margin-top: 100px;
-	background-color: rgba(9,18,66,.9);
-	padding-bottom: 75px;
+#footer {
+	padding-top: 15px;
 	width: 100%;
 	h2 {
 		color: $txt;
